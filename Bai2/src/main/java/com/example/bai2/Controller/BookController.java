@@ -1,7 +1,7 @@
-package com.example.baitap2.controller;
+package com.example.bai2.Controller;
 
-import com.example.baitap2.model.Book;
-import com.example.baitap2.service.BookService;
+import com.example.bai2.model.Book;
+import com.example.bai2.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
