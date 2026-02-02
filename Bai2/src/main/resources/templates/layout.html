@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sách</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-bottom: 3px solid #c00;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 1rem;
+        }
+        header nav a:hover { text-decoration: underline; }
+        header nav a.active { font-weight: bold; }
+        main { flex: 1; padding: 24px; }
+        footer {
+            background-color: #e0e0e0;
+            color: #333;
+            text-align: center;
+            padding: 12px;
+            border-top: 3px solid #c00;
+        }
+        footer p { margin: 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/books}">Books</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+    <main>
+        <div layout:fragment="content"></div>
+    </main>
+    <footer>
+        <p>©2025 Phát triển ứng dụng với J2EE</p>
+    </footer>
+</body>
+</html>

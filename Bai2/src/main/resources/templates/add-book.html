@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm sách mới</title>
     <style>
         .error { color: red; font-size: 0.9em; }
@@ -11,23 +11,24 @@
     </style>
 </head>
 <body>
-    <h1>Thêm sách mới</h1>
-
-    <form th:action="@{/books/add}" th:object="${book}" method="post">
-        <div>
-            <label for="title">Tiêu đề</label>
-            <input type="text" id="title" th:field="*{title}" placeholder="Tiêu đề sách" />
-            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
-        </div>
-        <div>
-            <label for="author">Tác giả</label>
-            <input type="text" id="author" th:field="*{author}" placeholder="Tác giả" />
-            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="error"></span>
-        </div>
-        <div>
-            <button type="submit">Thêm</button>
-            <a th:href="@{/books}">Quay lại danh sách</a>
-        </div>
-    </form>
+    <div layout:fragment="content">
+        <h1>Thêm sách mới</h1>
+        <form th:action="@{/books/add}" th:object="${book}" method="post">
+            <div>
+                <label for="title">Tiêu đề</label>
+                <input type="text" id="title" th:field="*{title}" placeholder="Tiêu đề sách" />
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+            </div>
+            <div>
+                <label for="author">Tác giả</label>
+                <input type="text" id="author" th:field="*{author}" placeholder="Tác giả" />
+                <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="error"></span>
+            </div>
+            <div>
+                <button type="submit">Thêm</button>
+                <a th:href="@{/books}">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

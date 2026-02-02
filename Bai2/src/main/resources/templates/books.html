@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}" lang="vi">
 <head>
-    <meta charset="UTF-8">
     <title>Danh sách sách</title>
+    <style>
+        .btn-add { display: inline-block; background: #2196F3; color: white; padding: 10px 16px; text-decoration: none; border-radius: 4px; margin-bottom: 16px; border: none; cursor: pointer; font-size: 1rem; }
+        .btn-add:hover { background: #1976D2; color: white; }
+        .btn-edit { display: inline-block; background: #FFC107; color: #333; padding: 6px 12px; text-decoration: none; border-radius: 4px; margin-right: 8px; font-size: 0.9rem; }
+        .btn-edit:hover { background: #FFB300; color: #333; }
+        .btn-delete { display: inline-block; background: #f44336; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 0.9rem; }
+        .btn-delete:hover { background: #d32f2f; color: white; }
+        table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f5f5f5; }
+    </style>
 </head>
 <body>
-    <h1>Danh sách sách</h1>
-    <a th:href="@{/books/add}">Thêm sách mới</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tiêu đề</th>
-                <th>Tác giả</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="book : ${books}">
-                <td th:text="${book.id}"></td>
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.author}"></td>
-                <td>
-                    <a th:href="@{/books/edit/{id}(id=${book.id})}">Sửa</a>
-                    <a th:href="@{/books/delete/{id}(id=${book.id})}">Xóa</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div layout:fragment="content">
+        <h1>Danh Sách Sách</h1>
+        <a th:href="@{/books/add}" class="btn-add">Thêm Sách Mới</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Tác giả</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td>
+                        <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn-edit">Sửa</a>
+                        <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn-delete" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
