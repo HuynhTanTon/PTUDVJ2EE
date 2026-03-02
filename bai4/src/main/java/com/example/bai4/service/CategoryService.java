@@ -1,29 +1,33 @@
 package com.example.bai4.service;
 
 import com.example.bai4.model.Category;
+import com.example.bai4.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CategoryService {
-    private List<Category> listCategory = new ArrayList<>();
-    
-    public CategoryService() {
-        // Khá»Ÿi táº¡o dá»¯ liá»‡u máº«u
-        listCategory.add(new Category(1, "Điện thoại"));
-        listCategory.add(new Category(2, "Laptop"));
+
+    private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
-    
+
     public List<Category> getAll() {
-        return listCategory;
+        return categoryRepository.findAll();
     }
-    
+
     public Category get(int id) {
-        return listCategory.stream()
-                .filter(category -> category.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    public Category save(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    public void delete(int id) {
+        categoryRepository.deleteById(id);
     }
 }

@@ -54,14 +54,11 @@
                 <label for="category">Category</label>
                 <select class="form-control" 
                         id="category" 
-                        th:field="*{category.id}">
+                        name="categoryId">
                     <option th:each="category: ${categories}" 
                             th:value="${category.id}" 
                             th:text="${category.name}"></option>
                 </select>
-                <div th:if="${#fields.hasErrors('category')}" 
-                     th:errors="*{category}" 
-                     class="alert alert-danger"></div>
             </div>
             
             <input type="submit" class="btn btn-success" value="Add Product">

@@ -35,9 +35,9 @@ public class ProductController {
     }
     
     @PostMapping("/create")
-    public String Create(@Valid Product newProduct, BindingResult result,
-                        @RequestParam("category.id") int categoryId,
-                        @RequestParam("imageProduct") MultipartFile imageProduct,
+    public String Create(@Valid @ModelAttribute("product") Product newProduct, BindingResult result,
+                        @RequestParam("categoryId") int categoryId,
+                        @RequestParam(value = "imageProduct", required = false) MultipartFile imageProduct,
                         Model model) {
         if (result.hasErrors()) {
             model.addAttribute("product", newProduct);
@@ -45,8 +45,9 @@ public class ProductController {
             return "product/create";
         }
         
-        // Xử lý ảnh
-        productService.updateImage(newProduct, imageProduct);
+        if (imageProduct != null && !imageProduct.isEmpty()) {
+            productService.updateImage(newProduct, imageProduct);
+        }
         
         Category selectedCategory = categoryService.get(categoryId);
         newProduct.setCategory(selectedCategory);
@@ -67,8 +68,9 @@ public class ProductController {
     }
     
     @PostMapping("/edit")
-    public String Edit(@Valid Product editProduct, BindingResult result,
-                      @RequestParam("imageProduct") MultipartFile imageProduct,
+    public String Edit(@Valid @ModelAttribute("product") Product editProduct, BindingResult result,
+                      @RequestParam("categoryId") int categoryId,
+                      @RequestParam(value = "imageProduct", required = false) MultipartFile imageProduct,
                       Model model) {
         if (result.hasErrors()) {
             model.addAttribute("product", editProduct);
@@ -76,18 +78,18 @@ public class ProductController {
             return "product/edit";
         }
         
-        // Cập nhật ảnh nếu có
         if (imageProduct != null && !imageProduct.isEmpty()) {
             productService.updateImage(editProduct, imageProduct);
         }
         
-        // Cập nhật sản phẩm
+        Category selectedCategory = categoryService.get(categoryId);
+        editProduct.setCategory(selectedCategory);
         productService.update(editProduct);
         
         return "redirect:/products";
     }
     
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String Delete(@PathVariable int id) {
         productService.delete(id);
         return "redirect:/products";
