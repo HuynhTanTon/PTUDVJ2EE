@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý học phần - Course Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6f61, #ffc371);
+            background-size: 400% 400%;
+            animation: bgGradient 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes bgGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .admin-table {
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">CourseReg</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/my-courses}">My Courses</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mb-4 admin-table">
+    <div class="d-flex justify-content-between align-items-center mb-3 text-white">
+        <h2>Quản lý học phần</h2>
+        <a class="btn btn-primary" th:href="@{/admin/courses/create}">Thêm học phần</a>
+    </div>
+
+    <table class="table table-bordered table-striped bg-white rounded-3 overflow-hidden">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên môn</th>
+            <th>Tín chỉ</th>
+            <th>Giảng viên</th>
+            <th>Danh mục</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${courses}">
+            <td th:text="${c.id}">1</td>
+            <td th:text="${c.name}">Tên môn</td>
+            <td th:text="${c.credits}">3</td>
+            <td th:text="${c.lecturer}">GV</td>
+            <td th:text="${c.category != null ? c.category.name : ''}">Category</td>
+            <td>
+                <a class="btn btn-sm btn-secondary"
+                   th:href="@{'/admin/courses/edit/' + ${c.id}}">Sửa</a>
+                <a class="btn btn-sm btn-danger"
+                   th:href="@{'/admin/courses/delete/' + ${c.id}}"
+                   onclick="return confirm('Xóa học phần này?');">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="text-center mt-auto mb-3 text-light-50">
+    <hr class="border-light">
+    <p class="text-light">&copy; 2025 - Course Registration Application</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

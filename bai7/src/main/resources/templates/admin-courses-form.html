@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Form - Course Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6f61, #ffc371);
+            background-size: 400% 400%;
+            animation: bgGradient 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes bgGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-card {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">CourseReg</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/home}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/my-courses}">My Courses</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 form-card">
+                <div class="card-body">
+                    <h2 class="mb-3" th:text="${course.id == null} ? 'Thêm học phần' : 'Chỉnh sửa học phần'"></h2>
+
+                    <form th:action="@{${course.id == null} ? '/admin/courses/create' : '/admin/courses/edit/' + ${course.id}}"
+                          th:object="${course}" method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Tên môn</label>
+                            <input id="name" th:field="*{name}" class="form-control">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="credits">Tín chỉ</label>
+                            <input id="credits" type="number" th:field="*{credits}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="lecturer">Giảng viên</label>
+                            <input id="lecturer" th:field="*{lecturer}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="image">URL hình ảnh</label>
+                            <input id="image" th:field="*{image}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="category">Danh mục</label>
+                            <select id="category" name="categoryId" class="form-select">
+                                <option th:each="cat : ${categories}"
+                                        th:value="${cat.id}"
+                                        th:text="${cat.name}"
+                                        th:selected="${course.category != null and course.category.id == cat.id}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Lưu</button>
+                        <a class="btn btn-secondary" th:href="@{/admin/courses}">Hủy</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center mt-auto mb-3 text-light-50">
+    <hr class="border-light">
+    <p class="text-light">&copy; 2025 - Course Registration Application</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
