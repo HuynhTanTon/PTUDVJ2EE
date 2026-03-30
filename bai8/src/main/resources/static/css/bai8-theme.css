@@ -1,0 +1,316 @@
+/* Bai8 Shop — theme chung: màu, nền, thẻ, nút, animation nhẹ */
+
+:root {
+    --bai8-primary: #2563eb;
+    --bai8-primary-dark: #1d4ed8;
+    --bai8-accent: #f97316;
+    --bai8-surface: rgba(255, 255, 255, 0.92);
+    --bai8-text: #0f172a;
+    --bai8-muted: #64748b;
+    --bai8-radius: 1rem;
+    --bai8-shadow: 0 10px 40px -12px rgba(15, 23, 42, 0.18);
+    --bai8-font: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.bai8-app {
+    min-height: 100vh;
+    font-family: var(--bai8-font);
+    color: var(--bai8-text);
+    background: linear-gradient(145deg, #e0e7ff 0%, #fae8ff 35%, #fff7ed 70%, #e0f2fe 100%);
+    background-attachment: fixed;
+}
+
+.bai8-main {
+    flex: 1;
+}
+
+/* Navbar */
+.bai8-navbar {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bai8-navbar .navbar-brand {
+    letter-spacing: -0.02em;
+    font-size: 1.15rem;
+}
+
+.bai8-logo-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bai8-accent), #fbbf24);
+    display: inline-block;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+}
+
+.bai8-navbar .nav-link {
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.85rem !important;
+    margin: 0 0.1rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.bai8-navbar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.bai8-navbar .nav-link.active {
+    background: rgba(37, 99, 235, 0.35);
+    color: #fff !important;
+}
+
+.bai8-navbar .btn-nav {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* Page title */
+.bai8-page-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--bai8-text);
+}
+
+.bai8-page-sub {
+    color: var(--bai8-muted);
+    font-size: 0.95rem;
+}
+
+/* Filter card */
+.bai8-filter-card {
+    background: var(--bai8-surface);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: var(--bai8-radius);
+    box-shadow: var(--bai8-shadow);
+}
+
+.bai8-filter-card .form-label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bai8-muted);
+}
+
+/* Product cards */
+.bai8-product-card {
+    border-radius: var(--bai8-radius);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: bai8-fade-up 0.45s ease backwards;
+}
+
+.bai8-product-card:nth-child(1) { animation-delay: 0.05s; }
+.bai8-product-card:nth-child(2) { animation-delay: 0.1s; }
+.bai8-product-card:nth-child(3) { animation-delay: 0.15s; }
+.bai8-product-card:nth-child(4) { animation-delay: 0.2s; }
+.bai8-product-card:nth-child(5) { animation-delay: 0.25s; }
+
+.bai8-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -20px rgba(15, 23, 42, 0.25);
+}
+
+.bai8-product-card .card-img-wrap {
+    background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.bai8-product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bai8-price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--bai8-primary);
+    letter-spacing: -0.02em;
+}
+
+.btn-bai8-cart {
+    background: linear-gradient(135deg, var(--bai8-primary), var(--bai8-primary-dark));
+    border: none;
+    font-weight: 600;
+    border-radius: 0.65rem;
+    padding: 0.45rem 1rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-bai8-cart:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px -4px rgba(37, 99, 235, 0.55);
+    background: linear-gradient(135deg, var(--bai8-primary-dark), #1e40af);
+}
+
+/* Table in card */
+.bai8-table-card {
+    background: var(--bai8-surface);
+    border-radius: var(--bai8-radius);
+    box-shadow: var(--bai8-shadow);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+}
+
+.bai8-table-card .table thead th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #94a3b8;
+    border-bottom-width: 1px;
+    background: #f8fafc;
+}
+
+.bai8-table-card .table tbody tr {
+    transition: background 0.15s;
+}
+
+.bai8-table-card .table tbody tr:hover {
+    background: rgba(37, 99, 235, 0.04);
+}
+
+/* Pagination */
+.bai8-pagination .page-link {
+    border-radius: 0.5rem;
+    margin: 0 0.15rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    color: var(--bai8-primary);
+    font-weight: 500;
+}
+
+.bai8-pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, var(--bai8-primary), var(--bai8-primary-dark));
+    border-color: transparent;
+}
+
+/* Auth shell */
+.bai8-auth-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(145deg, #1e293b 0%, #312e81 40%, #0f172a 100%);
+}
+
+.bai8-auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--bai8-surface);
+    border-radius: 1.25rem;
+    box-shadow: 0 25px 80px -20px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: bai8-fade-up 0.5s ease;
+}
+
+.bai8-auth-brand {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--bai8-primary), #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Success check */
+.bai8-success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.25rem;
+    animation: bai8-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 12px 40px -8px rgba(34, 197, 94, 0.55);
+}
+
+/* Admin */
+.bai8-admin-nav {
+    background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bai8-stat-card {
+    border-radius: var(--bai8-radius);
+    border: none;
+    box-shadow: var(--bai8-shadow);
+    transition: transform 0.2s;
+}
+
+.bai8-stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.bai8-footer {
+    margin-top: auto;
+    padding: 1.25rem 0;
+    color: var(--bai8-muted);
+    font-size: 0.875rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Empty state */
+.bai8-empty {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--bai8-muted);
+}
+
+.bai8-empty i {
+    font-size: 3rem;
+    opacity: 0.35;
+}
+
+@keyframes bai8-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bai8-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Focus visible — accessibility */
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible,
+.nav-link:focus-visible {
+    outline: 2px solid var(--bai8-primary);
+    outline-offset: 2px;
+}
+
+.bai8-track {
+    letter-spacing: 0.14em;
+}
+
+@media (max-width: 575.98px) {
+    .bai8-page-title {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Fragment: thanh điều hướng cửa hàng (responsive) — activeMenu: products | cart -->
+<nav th:fragment="shop-navbar (activeMenu)"
+     class="navbar navbar-expand-lg navbar-dark bai8-navbar sticky-top shadow-sm mb-0">
+    <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" th:href="@{/products}">
+            <span class="bai8-logo-dot" aria-hidden="true"></span>
+            <span>Bai8 Shop</span>
+        </a>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#bai8Nav" aria-controls="bai8Nav" aria-expanded="false" aria-label="Mở menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="bai8Nav">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activeMenu == 'products'} ? 'active'"
+                       th:href="@{/products}"><i class="bi bi-grid-3x3-gap me-1"></i>Sản phẩm</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('USER','ADMIN')">
+                    <a class="nav-link" th:classappend="${activeMenu == 'cart'} ? 'active'"
+                       th:href="@{/cart}"><i class="bi bi-bag me-1"></i>Giỏ hàng</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:classappend="${activeMenu == 'admin'} ? 'active'"
+                       th:href="@{/admin}"><i class="bi bi-shield-lock me-1"></i>Admin</a>
+                </li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2 align-items-center ms-lg-2 pb-3 pb-lg-0">
+                <span sec:authorize="isAuthenticated()"
+                      class="text-white-50 small d-none d-md-inline"
+                      sec:authentication="name">user</span>
+                <a class="btn btn-outline-light btn-sm btn-nav" sec:authorize="!isAuthenticated()"
+                   th:href="@{/login}"><i class="bi bi-box-arrow-in-right me-1"></i>Đăng nhập</a>
+                <a class="btn btn-light btn-sm text-dark btn-nav" sec:authorize="!isAuthenticated()"
+                   th:href="@{/register}">Đăng ký</a>
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-inline m-0">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm btn-nav">
+                        <i class="bi bi-box-arrow-right me-1"></i>Đăng xuất
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Navbar trang Admin -->
+<nav th:fragment="admin-navbar" class="navbar navbar-expand-lg navbar-dark bai8-admin-nav sticky-top shadow-sm mb-0">
+    <div class="container">
+        <span class="navbar-brand fw-bold"><i class="bi bi-shield-check me-2"></i>Khu vực quản trị</span>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#bai8AdminNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="bai8AdminNav">
+            <div class="d-flex flex-wrap gap-2 align-items-center mt-2 mt-lg-0">
+                <a class="btn btn-outline-light btn-sm" th:href="@{/products}"><i class="bi bi-shop me-1"></i>Cửa hàng</a>
+                <span class="text-white-50 small" sec:authentication="name">admin</span>
+                <form th:action="@{/logout}" method="post" class="d-inline m-0">
+                    <button type="submit" class="btn btn-light btn-sm text-danger"><i class="bi bi-box-arrow-right me-1"></i>Thoát</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+</html>
